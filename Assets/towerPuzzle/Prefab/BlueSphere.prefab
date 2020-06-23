@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8850949952225232236}
   - component: {fileID: 8850949952225232211}
   - component: {fileID: 8850949952225232210}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BlueSphere
   m_TagString: BlueSphere
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8850949952225232209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.91, y: 0.28, z: 2.8853235}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -108,3 +108,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   Effect: {fileID: 8486822541247379625, guid: b7f52c301df575043b1b888a2c983216, type: 3}
+  audioClip: {fileID: 8300000, guid: 60e914f8887d123479d8003316123b35, type: 3}

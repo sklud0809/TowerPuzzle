@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3811281134903697084}
   - component: {fileID: 3811281134903697085}
   - component: {fileID: 3811281134903697074}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 'GreenSphere '
   m_TagString: GreenSphere
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3811281134903697072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.61, y: 0.28, z: 2.8853235}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -108,3 +108,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   Effect: {fileID: 501951474374083365, guid: b8f4cd1e89ccabf4cb9150cb5e2fec30, type: 3}
+  audioClip: {fileID: 8300000, guid: be78e83eb84d1754cae24b81384f67ac, type: 3}

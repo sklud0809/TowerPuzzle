@@ -11,9 +11,10 @@ public class EnemyController : MonoBehaviour
     private Animator anim; //アニメーターを取得
     public GameObject house; //ハウスを標的
     private int maxhp = 100;//敵Hp表示の際に使うのもの　※現在は未設定
-    private int hp = 200;
+    public int hp = 200;
     private int hit;  //PlayerController側にコンボ数を更新させるための箱
     private　PlayerController playerController;
+    private TimeManager tm;//TimeManagerのスクリプト取得の宣言
 
     public GameObject disappearanceEffct; //死亡後のエフェクト
     public Collider Axe;
@@ -21,6 +22,13 @@ public class EnemyController : MonoBehaviour
     private float cooldown = 2.5f;//攻撃後のクールタイム
     float timer = 0.0f;//攻撃後のタイマー
     float dieTimer = 0.0f; //死亡後のタイマー
+
+    private float xMinPosition = -24;//X座標の最小値
+    private float xMaxPosition = -23;//x座標の最大値
+    private float yMinPosition = 0f;//Y座標
+    private float yMaxPosition = 0f;//Y座標
+    private float zMinPosition = -2f;//Z座標の最小値  
+    private float zMaxPosition = 0f;//Z座標の最大値
 
     //UI関連
     public int damageScore;
@@ -33,15 +41,16 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         //アニメーターコンポーネント取得
         anim = GetComponent<Animator>();
-       
+      
        //アックスのコライダーをオフ 
         Axe.enabled = false;
        
         //子オブジェクトのコライダーをオフ
         AttackCollider.enabled = true;
         //プレハブから生成されたときに　シーン上にいるPlayerの中のPlayerControllerを取得している
-        playerController = GameObject.Find("PlayerPrefab").GetComponent<PlayerController>();
-        
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        house.transform.position = GetRandomPosition();
+        tm = GameObject.Find("TimeManager").GetComponent<TimeManager>();//TimeManagerのスクリプトを取得
     }
 
     
@@ -67,7 +76,7 @@ public class EnemyController : MonoBehaviour
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idel"))
         {
-            agent.speed = 3;
+            agent.speed = 2.5f;
             agent.angularSpeed = 120;
         }
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
@@ -86,8 +95,16 @@ public class EnemyController : MonoBehaviour
             {
                 DieEffect();
                 dieTimer = 0.0f;
+
                 Destroy(this.gameObject);
             }
+        }
+        //ゲームクリア時に攻撃をさせない
+        if(tm.countDown <= 0)
+        {
+            AttackCollider.enabled = false;
+            
+            
         }
     }
     
@@ -107,14 +124,14 @@ public class EnemyController : MonoBehaviour
 
                 hit ++;　//　Enemyの中hitに１＋する
                 playerController.Gethit = hit;　//プレイヤーのコンボ数にカウントをいれる
-                for (int i = 1; i <= hit; i++)
+                for (int i = 0; i <= hit; i++)
                 {
                    
-                    Damage(damageMana.damage * i);
-                    damageScore += damageMana.damage;
+                    Damage(damageMana.damage * 2);
+                    damageScore += damageMana.damage * 2;//ダメージスコアを加算
                     dmgCh = true;
 
-                    Debug.Log(damageMana.damage * i + "のダメージを与えた");
+                    Debug.Log(damageMana.damage  + "のダメージを与えた");
 
                 }
                 
@@ -125,16 +142,25 @@ public class EnemyController : MonoBehaviour
         {
             if(damageMana != null)
             {
-                Damage(damageMana.damage / 2) ;
-                Debug.Log(damageMana.damage / 2 + "のダメージを与えた");
+                Damage(damageMana.damage) ;
+                damageScore += damageMana.damage;// ダメージスコアを加算
+                dmgCh = true;
+               // Debug.Log(damageMana.damage / 2 + "のダメージを与えた");
                 hit = 0; 
                 playerController.Gethit = hit;//コンボ数のリセット
             }
         }
         else if(other.gameObject.tag == "GreenSphere")
         {
-            hit = 0;
-            playerController.Gethit = hit;//コンボ数のリセット
+            if (damageMana != null)
+            {
+                Damage(damageMana.damage / 2);
+                damageScore += damageMana.damage / 2;// ダメージスコアを加算
+                dmgCh = true;
+                hit = 0;
+                playerController.Gethit = hit;//コンボ数のリセット
+            }
+            
         }
     }
 
@@ -160,6 +186,20 @@ public class EnemyController : MonoBehaviour
         GameObject dieEffect = Instantiate(disappearanceEffct) as GameObject;
         //エフェクトの位置を指定 
         dieEffect.transform.position = this.transform.position;
+        Destroy(dieEffect, 2f);
+    }
+
+
+    //ランダムな位置を生成する関数
+    private Vector3 GetRandomPosition()
+    {
+        //それぞれの座標をランダムに生成する
+        float x = Random.Range(xMinPosition, xMaxPosition);
+        float y = Random.Range(yMinPosition, yMaxPosition);
+        float z = Random.Range(zMinPosition, zMaxPosition);
+
+        //Vector3型のPositionを返す
+        return new Vector3(x, y, z);
     }
 
     // 以下攻撃関連
@@ -180,7 +220,7 @@ public class EnemyController : MonoBehaviour
     public void AttackHitFinishe()
     {
         Axe.enabled = false;
-        agent.speed = 3f;
+        agent.speed = 2.5f;
         agent.angularSpeed = 120;
     }
 }

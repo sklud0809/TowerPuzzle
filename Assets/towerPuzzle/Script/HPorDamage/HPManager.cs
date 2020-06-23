@@ -6,7 +6,7 @@ public class HPManager : MonoBehaviour
 {
     public Slider hpslider;
     //public GameObject damageScorePrefab;
-
+    public GameObject fill;
     public void Init(HouseController houseController)
     {
         hpslider.maxValue = houseController.maxhp;
@@ -21,6 +21,10 @@ public class HPManager : MonoBehaviour
     {
        
         hpslider.value = hp;
+         if(hpslider.value == 0)
+        {
+            fill.SetActive(false);
+        }
     }
 
     

@@ -10,6 +10,7 @@ TagManager:
   - RedSphere
   - GreenSphere
   - BlueSphere
+  - House
   layers:
   - Default
   - TransparentFX
@@ -19,10 +20,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - EnemyAttack
+  - Spheres
+  - Player
   - 
   - 
   - 

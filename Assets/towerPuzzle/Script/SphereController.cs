@@ -6,11 +6,12 @@ public class SphereController : MonoBehaviour
 {
     public int damage;
     public GameObject Effect;
+    public AudioClip audioClip;
     private Vector3 vec;
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -23,10 +24,11 @@ public class SphereController : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
-            vec = new Vector3( other.transform.position.x,other.transform.position.y,other.transform.position.z);
+            vec = new Vector3( other.transform.position.x,0,other.transform.position.z);
             EffectGenerator();
+            AudioSource.PlayClipAtPoint(audioClip, other. transform.position);//音のなる座標となる音を指定
             Destroy(this.gameObject);
-
+            
         }
     }
 
@@ -37,5 +39,6 @@ public class SphereController : MonoBehaviour
         //エフェクトの発生場所を特定
         _effect.transform.position = vec;
         Destroy(_effect, 3f);
+       
     }
 }

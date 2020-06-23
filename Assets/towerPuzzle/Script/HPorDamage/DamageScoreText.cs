@@ -4,33 +4,71 @@ using UnityEngine;
 using UnityEngine.UI;
 public class DamageScoreText : MonoBehaviour
 {
-    private int score = 0;
-    private GameObject enemy;
+    public static int score ;
+    private GameObject[] enemy = new GameObject[100];
     private int enemyScore;
-    private EnemyController enemyController;
+    private EnemyController ec ; 
+    private SlimeController slimeController;
+    
     void Start()
     {
-       
+        score = 0;  
 
     }
 
 
     void Update()
     {
-        enemy = GameObject.Find("EnemyPrefab(Clone)");//常にゲームオブジェクトを探している。
-        //Debug.Log(enemy);
-        if (enemy != null)//ゲームオブジェクトが見つかった時に処理開始
+        enemy = GameObject.FindGameObjectsWithTag("Enemy" );
+        for (int i = 0; i < enemy.Length; i++)
         {
-            enemyController = enemy.GetComponent<EnemyController>();//EnemyControllerを取得し、スコアの加算を行う。
-            //Debug.Log(enemyController);
-            if (enemyController.dmgCh == true)
-            {
-                enemyScore = enemyController.damageScore;
-                score += enemyScore;
-                enemyController.dmgCh = false;
+            
 
+           
+            if (enemy != null)//ゲームオブジェクトが見つかった時に処理開始
+            {
+                if(enemy[i].GetComponent<EnemyController>())
+                {
+                     ec  = enemy[i].GetComponent<EnemyController>();//EnemyControllerを取得
+                    if (ec.dmgCh == true)
+                    {
+                        enemyScore = ec.damageScore;
+                        score += enemyScore;
+                        ec.dmgCh = false;
+
+                    }
+                }
+                else if (enemy[i].GetComponent<SlimeController>())
+                {
+                    slimeController = enemy[i].GetComponent<SlimeController>();
+                    if (slimeController.dmgCh == true)
+                    {
+                        enemyScore = slimeController.damageScore;
+                        score += enemyScore;
+                        slimeController.dmgCh = false;
+                    }
+                }
+                else if (enemy[i].GetComponent<DragonController>())
+                {
+                    DragonController dc = enemy[i].GetComponent<DragonController>();
+                    if(dc.dmgCh == true)
+                    {
+                        enemyScore = dc.damageScore;
+                        score += enemyScore;
+                        dc.dmgCh = false;
+                    }
+                }
+                
+               
+
+                
+              
             }
         }
-       this.GetComponent<Text>().text = this.score.ToString() + "  dmg";
+       this.GetComponent<Text>().text = score.ToString() + "  dmg";
+    }
+    public static int GetEndScore()
+    {
+        return score;
     }
 }
