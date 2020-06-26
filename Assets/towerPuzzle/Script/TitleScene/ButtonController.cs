@@ -5,11 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class ButtonController : MonoBehaviour
 {
-   
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -18,14 +18,11 @@ public class ButtonController : MonoBehaviour
         
     }
 
-    public void GameSceneClick()
-    {
-        //ここで移りたいシーンを指定します。
-        SceneManager.LoadScene("GameScene");
-    }
+   
     public void GameOverSceneClick()
     {
         SceneManager.LoadScene("TitleScene");
+        audioSource.Play();
     }
    
 }

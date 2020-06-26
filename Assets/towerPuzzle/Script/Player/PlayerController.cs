@@ -7,11 +7,12 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody rb;
     private Animator anim;
     public int Gethit;
-    
+    private AudioSource audioSource;
 	void Start ()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         Gethit = 0;
 	}
 	
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour {
 
             //スフィアをキャラの子オブジェクトにして吸着を再現
             collision.gameObject.transform.parent = this.gameObject.transform;//当たったオブジェクトは子になる
+            audioSource.Play();
         }
     }
 

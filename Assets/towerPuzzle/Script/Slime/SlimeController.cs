@@ -25,6 +25,13 @@ public class SlimeController : MonoBehaviour
     public bool dmgCh = false;
     public int damageScore;
 
+
+    private float xMinPosition = -25;//X座標の最小値
+    private float xMaxPosition = -23;//x座標の最大値
+    private float zMinPosition = -2f;//Z座標の最小値  
+    private float zMaxPosition = 2f;//Z座標の最大値
+
+
     void Start()
     {
         //ナビメッシュ取得
@@ -35,7 +42,8 @@ public class SlimeController : MonoBehaviour
 
         //プレハブから生成されたときに　シーン上にいるPlayerの中のPlayerControllerを取得している
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        
+        house.transform.position = GetRandomPosition();
+
         tm = GameObject.Find("TimeManager").GetComponent<TimeManager>();//TimeManagerのスクリプトを取得
 
     }
@@ -65,6 +73,7 @@ public class SlimeController : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Die"))
         {
             dieTimer += Time.deltaTime;
+            attackHitCollider.enabled = false;
             agent.destination = this. transform.position;
             agent.speed = 0;
             if (dieTimer >= 2f)
@@ -149,6 +158,16 @@ public class SlimeController : MonoBehaviour
         //エフェクトの位置を指定 
         dieEffect.transform.position = this.transform.position;
         Destroy(dieEffect, 2f);
+    }
+
+    private Vector3 GetRandomPosition()
+    {
+        //それぞれの座標をランダムに生成する
+        float x = Random.Range(xMinPosition, xMaxPosition);
+        float z = Random.Range(zMinPosition, zMaxPosition);
+
+        //Vector3型のPositionを返す
+        return new Vector3(x, 0, z);
     }
 
     // 以下攻撃関連処理

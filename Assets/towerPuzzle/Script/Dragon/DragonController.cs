@@ -70,6 +70,7 @@ public class DragonController : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Die"))
         {
             dieTimer += Time.deltaTime;
+            attackHitCollider.enabled = false;
             agent.destination = this.transform.position;
             agent.speed = 0;
             if (dieTimer >= 2f)
@@ -124,7 +125,7 @@ public class DragonController : MonoBehaviour
                     Damage(damageMana.damage * 2);
                     damageScore += damageMana.damage * 2;//ダメージスコアを加算
                     dmgCh = true;
-                    Debug.Log(damageMana.damage  + "のダメージを与えた");
+                   // Debug.Log(damageMana.damage  + "のダメージを与えた");
                 }
             }
         }
@@ -154,8 +155,8 @@ public class DragonController : MonoBehaviour
 
 
         }
-        //hpManager.UpdateHP(hp); HP表示の際に使うもの　現在未設定
-        Debug.Log("ドラゴンの残りHP" + hp);
+       
+       // Debug.Log("ドラゴンの残りHP" + hp);
         
     }
 

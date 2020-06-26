@@ -8,7 +8,7 @@ public class ItemGenerator : MonoBehaviour
     public GameObject blueSpherePrefab;
     public GameObject greenSpherePrefab;
     float xMinPosition = -25;
-    float xMaxPosition = -8;
+    float xMaxPosition = -10;
     float yMaxPosition = 0.3f;
     float yMinPosition = 0.3f;
     float zMinPosition = -15;

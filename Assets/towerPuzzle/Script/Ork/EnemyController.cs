@@ -23,12 +23,10 @@ public class EnemyController : MonoBehaviour
     float timer = 0.0f;//攻撃後のタイマー
     float dieTimer = 0.0f; //死亡後のタイマー
 
-    private float xMinPosition = -24;//X座標の最小値
+    private float xMinPosition = -26;//X座標の最小値
     private float xMaxPosition = -23;//x座標の最大値
-    private float yMinPosition = 0f;//Y座標
-    private float yMaxPosition = 0f;//Y座標
     private float zMinPosition = -2f;//Z座標の最小値  
-    private float zMaxPosition = 0f;//Z座標の最大値
+    private float zMaxPosition = 2f;//Z座標の最大値
 
     //UI関連
     public int damageScore;
@@ -58,6 +56,7 @@ public class EnemyController : MonoBehaviour
     {
         //家に向けて進行していく
         agent.destination = house.transform.position;
+       // Debug.Log(agent.destination);
         //移動のアニメーションを設定
         anim.SetFloat("Speed", agent.remainingDistance);
 
@@ -89,6 +88,7 @@ public class EnemyController : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Die"))
         {
             dieTimer += Time.deltaTime;
+            Axe.enabled = false;
             agent.destination = this.transform.position;
             agent.speed = 0;
             if (dieTimer >= 2f)
@@ -131,7 +131,7 @@ public class EnemyController : MonoBehaviour
                     damageScore += damageMana.damage * 2;//ダメージスコアを加算
                     dmgCh = true;
 
-                    Debug.Log(damageMana.damage  + "のダメージを与えた");
+                    //Debug.Log(damageMana.damage  + "のダメージを与えた");
 
                 }
                 
@@ -175,8 +175,8 @@ public class EnemyController : MonoBehaviour
 
             
         }
-        //hpManager.UpdateHP(hp); HP表示の際に使うもの　現在未設定
-        Debug.Log("オークの残りHP" + hp);
+       
+        //Debug.Log("オークの残りHP" + hp);
         anim.SetTrigger("GetHit");
     }
 
@@ -195,11 +195,10 @@ public class EnemyController : MonoBehaviour
     {
         //それぞれの座標をランダムに生成する
         float x = Random.Range(xMinPosition, xMaxPosition);
-        float y = Random.Range(yMinPosition, yMaxPosition);
         float z = Random.Range(zMinPosition, zMaxPosition);
 
         //Vector3型のPositionを返す
-        return new Vector3(x, y, z);
+        return new Vector3(x,0, z);
     }
 
     // 以下攻撃関連
