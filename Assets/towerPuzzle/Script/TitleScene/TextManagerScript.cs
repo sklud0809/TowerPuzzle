@@ -12,6 +12,7 @@ public class TextManagerScript : MonoBehaviour
     public GameObject panel;
     public GameObject gameStartButton;
     public GameObject nextButton;
+    public GameObject backButton;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -37,6 +38,7 @@ public class TextManagerScript : MonoBehaviour
         nextButton.SetActive(true);
         touchPleaseButton.SetActive(false);
         audioSource.Play();
+        backButton.SetActive(false);
     }
 
     public void Next()
@@ -45,6 +47,7 @@ public class TextManagerScript : MonoBehaviour
         nextButton.SetActive(false);
         tutorial2Text.SetActive(true);
         gameStartButton.SetActive(true);
+        backButton.SetActive(true);
         audioSource.Play(); 
     }
     public void GameSceneClick()
@@ -52,5 +55,16 @@ public class TextManagerScript : MonoBehaviour
         audioSource.Play();
         //ここで移りたいシーンを指定します。
         SceneManager.LoadScene("GameScene");
+    }
+    public void Back()
+    {
+        tutorialImage.SetActive(true);
+        tutorialText.SetActive(true);
+        tutorial2Text.SetActive(false);
+        panel.SetActive(true);
+        nextButton.SetActive(true);
+        touchPleaseButton.SetActive(false);
+        audioSource.Play();
+        backButton.SetActive(false);
     }
 }

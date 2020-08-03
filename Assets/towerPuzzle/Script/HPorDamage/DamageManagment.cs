@@ -7,12 +7,13 @@ public class DamageManagment : MonoBehaviour
     public int damage;//このスクリプトをつけたものにダメージを与えることが可能になる。
     public GameObject hitEffect;
     bool timerTrigger = false;
-    private float timer;
+    private float timer;//エフェクト出す際に使用している。
     private AudioSource audioSource;
-
+    private new Collider collider;
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        collider = GetComponent<BoxCollider>();
         hitEffect.SetActive(false);
     }
 
@@ -36,6 +37,7 @@ public class DamageManagment : MonoBehaviour
         if (other.gameObject.tag == "House")
         {
             timerTrigger = true;
+            this.collider.enabled = false;
             audioSource.Play();
         }
     }

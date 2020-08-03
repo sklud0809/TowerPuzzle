@@ -49,3 +49,5 @@ MonoBehaviour:
     type: 3}
   dragonPrefab: {fileID: 1733796962951768899, guid: 41dc028593b31bd46a4206dfc4acfdc7,
     type: 3}
+  minTime: 12
+  maxTime: 18

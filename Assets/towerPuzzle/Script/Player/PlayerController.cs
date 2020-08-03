@@ -8,13 +8,15 @@ public class PlayerController : MonoBehaviour {
     private Animator anim;
     public int Gethit;
     private AudioSource audioSource;
+    
 	void Start ()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         Gethit = 0;
-	}
+        
+    }
 	
 	
 	void Update ()
@@ -30,6 +32,8 @@ public class PlayerController : MonoBehaviour {
         rb.velocity = (move * moveSpeed);
 
         anim.SetFloat("Speed", rb.velocity.magnitude); // 歩くアニメーションの再生
+
+       
 	}
 
     private void OnCollisionEnter(Collision collision)

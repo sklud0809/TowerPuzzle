@@ -26,7 +26,7 @@ public class SphereController : MonoBehaviour
         {
             vec = new Vector3( other.transform.position.x,0,other.transform.position.z);
             EffectGenerator();
-            AudioSource.PlayClipAtPoint(audioClip, other. transform.position);//音のなる座標となる音を指定
+            AudioSource.PlayClipAtPoint(audioClip, other. transform.position );//音のなる座標となる音を指定 
             Destroy(this.gameObject);
             
         }
